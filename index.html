@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function suggest(str){
+            var text = document.getElementById('hint');
+            if(str.length !== 0){
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'process.php?q='+str, true);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        document.getElementById('hint').innerText = xhr.responseText;
+                    }
+                }
+                xhr.send();
+            }
+            else
+            {
+                text.innerText = '';
+            }
+
+        }
+        
+    </script>
+</head>
+<body>
+<form>
+    Name: <input type="text" onkeyup="suggest(this.value)">
+</form>
+<p>Suggestions: <span id="hint"></span></p>
+</body>
+</html>
